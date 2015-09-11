@@ -4,6 +4,6 @@ class Game
   attr_reader :players
 
   def start
-    @players = [Player.new(nil, nil), Player.new(nil, nil)]
+    @players = [Player.new(:up, nil), Player.new(:down, nil)]
   end
 end
