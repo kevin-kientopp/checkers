@@ -14,4 +14,11 @@ class GameTest < Minitest::Test
     assert_equal(:up, game.players[0].direction)
     assert_equal(:down, game.players[1].direction)
   end
+
+  def test_that_players_start_with_8_checkers
+    game = Game.new
+    game.start
+    assert_equal(8, game.players[0].checkers.length)
+    assert_equal(8, game.players[1].checkers.length)
+  end
 end
