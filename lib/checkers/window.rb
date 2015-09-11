@@ -2,7 +2,6 @@ require 'gosu'
 require_relative 'board_drawer'
 
 class Window < Gosu::Window
-  START_X = 80
 
   def initialize
     super 640, 480, false
@@ -15,5 +14,9 @@ class Window < Gosu::Window
 
   def draw
     @board_drawer.draw
+  end
+
+  def needs_cursor?
+    true
   end
 end
