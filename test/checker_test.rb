@@ -1,0 +1,3 @@
+class CheckerTest
+
+end
