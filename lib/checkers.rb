@@ -1,5 +1,8 @@
-require "checkers/version"
+require_relative 'checkers/window'
 
-module Checkers
-  # Your code goes here...
+class Checkers
+  def self.run
+    window = Window.new
+    window.show
+  end
 end

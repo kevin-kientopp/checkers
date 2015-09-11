@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'checkers/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "checkers"
-  spec.version       = Checkers::VERSION
+  spec.version       = "0.1.0"
   spec.authors       = ["Kevin Kientopp"]
   spec.email         = ["kevinkientopp@gmail.com"]
 
