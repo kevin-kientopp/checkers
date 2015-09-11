@@ -5,6 +5,6 @@ class Game
   attr_reader :players
 
   def start
-    @players = [Player.new(:up, (1..8).collect {Checker.new}), Player.new(:down, (1..8).collect {Checker.new})]
+    @players = [Player.new(:up, Array.new(8) {Checker.new}), Player.new(:down, Array.new(8) {Checker.new})]
   end
 end
