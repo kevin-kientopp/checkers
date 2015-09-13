@@ -1,6 +1,6 @@
 class PositionCalculator
   def calc_x_for_col(col)
-    col * 60
+    80 + col * 60
   end
 
   def calc_y_for_row(row)

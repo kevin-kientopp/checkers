@@ -17,12 +17,12 @@ class PositionCalculatorTest < Minitest::Test
   def test_calc_x_returns_0
     position_calculator = PositionCalculator.new
     x = position_calculator.calc_x_for_col(0)
-    assert_equal(0, x)
+    assert_equal(80, x)
   end
 
   def test_calc_x_returns_420
     position_calculator = PositionCalculator.new
     x = position_calculator.calc_x_for_col(7)
-    assert_equal(420, x)
+    assert_equal(500, x)
   end
 end
