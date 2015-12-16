@@ -71,4 +71,11 @@ class CheckerTest < Minitest::Test
     assert_equal 0, checker.row
     assert_equal 0, checker.col
   end
+
+  def test_checker_cannot_move_more_than_1_col
+    checker = Checker.new(0, 0, :up)
+    refute checker.move(1, 2)
+    assert_equal 0, checker.row
+    assert_equal 0, checker.col
+  end
 end
