@@ -29,4 +29,11 @@ class CheckerTest < Minitest::Test
     assert_equal 0, checker.row
     assert_equal 7, checker.col
   end
+
+  def test_checker_cannot_move_sideways
+    checker = Checker.new(0, 0, :up)
+    refute checker.move(0, 1)
+    assert_equal 0, checker.row
+    assert_equal 0, checker.col
+  end
 end
