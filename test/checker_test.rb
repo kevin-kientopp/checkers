@@ -9,7 +9,7 @@ class CheckerTest < Minitest::Test
     assert_equal 1, checker.col
   end
 
-  def test_checker_must_move_diagonally
+  def test_checker_cannot_move_straight
     checker = Checker.new(0, 0, :up)
     refute checker.move(1, 0)
     assert_equal 0, checker.row
