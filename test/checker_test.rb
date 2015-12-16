@@ -57,4 +57,12 @@ class CheckerTest < Minitest::Test
     assert_equal 0, checker.row
     assert_equal 0, checker.col
   end
+
+  def test_checker_cannot_move_to_row_greater_than_7
+    checker = Checker.new(7, 0, :up)
+    refute checker.move(8, 1)
+    assert_equal 7, checker.row
+    assert_equal 0, checker.col
+
+  end
 end
