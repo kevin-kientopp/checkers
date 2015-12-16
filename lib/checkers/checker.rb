@@ -7,7 +7,10 @@ class Checker
   end
 
   def move(row, col)
+    return false if col != @col - 1 and col != @col + 1
+
     @row, @col = row, col
+    true
   end
 
   def to_s
