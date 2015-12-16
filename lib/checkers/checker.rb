@@ -7,7 +7,7 @@ class Checker
   end
 
   def move(row, col)
-    return false if col < 0 or col > 7 or col == @col or row == @row or row < @row and @dir == :up
+    return false if col < 0 or col > 7 or col == @col or row == @row or (@dir == :up and row < @row) or (@dir == :down and row > @row)
 
     @row, @col = row, col
     true

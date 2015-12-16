@@ -43,4 +43,11 @@ class CheckerTest < Minitest::Test
     assert_equal 1, checker.row
     assert_equal 1, checker.col
   end
+
+  def test_checker_cannot_move_up_when_dir_is_down
+    checker = Checker.new(4, 4, :down)
+    refute checker.move(5, 5)
+    assert_equal 4, checker.row
+    assert_equal 4, checker.col
+  end
 end
