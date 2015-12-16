@@ -1,12 +1,16 @@
 class Checker
-  attr_reader :row, :col, :picked_up
+  attr_reader :row, :col, :dir, :picked_up
   alias_method :picked_up?, :picked_up
 
-  def initialize(row, col, image = nil)
-    @row, @col, @image = row, col, image
+  def initialize(row, col, dir, image = nil)
+    @row, @col, @dir, @image = row, col, dir, image
+  end
+
+  def move(row, col)
+    @row, @col = row, col
   end
 
   def to_s
-    "#{@row}, #{@col}"
+    "#{@row}, #{@col}, #{@dir}"
   end
 end
