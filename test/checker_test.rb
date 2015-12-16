@@ -1,5 +1,4 @@
 require 'test_helper'
-require_relative '../lib/checkers/game'
 
 class CheckerTest < Minitest::Test
   def test_checker_moves
