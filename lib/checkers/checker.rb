@@ -6,8 +6,18 @@ class Checker
     @row, @col, @dir, @image = row, col, dir, image
   end
 
-  def move(row, col)
-    return false if col < 0 or col > 7 or col == @col or row == @row or (@dir == :up and row < @row) or (@dir == :down and row > @row) or row < 0 or row > 7 or (row - @row).abs > 1 or (col - @col).abs > 1
+  def move(row, col, other_checkers)
+    return false if row < 0 or row > 7
+    return false if col < 0 or col > 7
+    return false if col == @col
+    return false if row == @row
+    return false if @dir == :up and row < @row
+    return false if @dir == :down and row > @row
+    return false if (row - @row).abs > 1
+    return false if (col - @col).abs > 1
+
+    checkers_in_space = other_checkers.count { |c| c.row == row and c.col == col }
+    return false if checkers_in_space > 0
 
     @row, @col = row, col
     true
