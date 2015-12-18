@@ -7,17 +7,15 @@ class Checker
   end
 
   def move(row, col, other_checkers)
-    return false if row < 0 or row > 7
-    return false if col < 0 or col > 7
-    return false if col == @col
-    return false if row == @row
-    return false if @dir == :up and row < @row
-    return false if @dir == :down and row > @row
-    return false if (row - @row).abs > 1
-    return false if (col - @col).abs > 1
+    return false if row < 0 or row > 7 or col < 0 or col > 7
 
-    checkers_in_space = other_checkers.count { |c| c.row == row and c.col == col }
-    return false if checkers_in_space > 0
+    eligible_spaces = []
+    eligible_spaces << [@row + 1 * dir_multiplier, @col - 1] if space_empty?(@row + 1 * dir_multiplier, @col - 1, other_checkers)
+    eligible_spaces << [@row + 1 * dir_multiplier, @col + 1] if space_empty?(@row + 1 * dir_multiplier, @col + 1, other_checkers)
+    eligible_spaces << [@row + 2 * dir_multiplier, @col - 2] if space_empty?(@row + 2 * dir_multiplier, @col - 2, other_checkers) and enemy_checker_in_space?(@row + 1 * dir_multiplier, @col - 1, other_checkers)
+    eligible_spaces << [@row + 2 * dir_multiplier, @col + 2] if space_empty?(@row + 2 * dir_multiplier, @col + 2, other_checkers) and enemy_checker_in_space?(@row + 1 * dir_multiplier, @col + 1, other_checkers)
+
+    return false if !eligible_spaces.include?([row, col])
 
     @row, @col = row, col
     true
@@ -25,5 +23,24 @@ class Checker
 
   def to_s
     "#{@row}, #{@col}, #{@dir}"
+  end
+
+  private
+  def space_empty?(row, col, checkers)
+    checkers.count { |c| c.row == row and c.col == col } == 0
+  end
+
+  def enemy_checker_in_space?(row, col, checkers)
+    checkers.count { |c| c.row == row and c.col == col and c.dir == opposite_dir } > 0
+  end
+
+  def dir_multiplier
+    return -1 if @dir == :down
+    return 1
+  end
+
+  def opposite_dir
+    return :down if @dir == :up
+    return :up
   end
 end

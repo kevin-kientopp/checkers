@@ -86,4 +86,13 @@ class CheckerTest < Minitest::Test
     assert_equal 0, checker.row
     assert_equal 0, checker.col
   end
+
+  def test_checker_can_jump_enemy_checker
+    other_checker = Checker.new(1, 1, :down)
+
+    checker = Checker.new(0, 0, :up)
+    assert checker.move(2, 2, [other_checker])
+    assert_equal 2, checker.row
+    assert_equal 2, checker.col
+  end
 end
