@@ -26,30 +26,22 @@ class GameTest < Minitest::Test
     game = Game.new
     game.start
 
-    assert(game.players[0].checkers.any? {|c| c.row == 0 && c.col == 1})
-    assert(game.players[0].checkers.any? {|c| c.row == 0 && c.col == 3})
-    assert(game.players[0].checkers.any? {|c| c.row == 0 && c.col == 5})
-    assert(game.players[0].checkers.any? {|c| c.row == 0 && c.col == 7})
-    assert(game.players[0].checkers.any? {|c| c.row == 1 && c.col == 0})
-    assert(game.players[0].checkers.any? {|c| c.row == 1 && c.col == 2})
-    assert(game.players[0].checkers.any? {|c| c.row == 1 && c.col == 4})
-    assert(game.players[0].checkers.any? {|c| c.row == 1 && c.col == 6})
-    assert(game.players[0].checkers.any? {|c| c.row == 2 && c.col == 1})
-    assert(game.players[0].checkers.any? {|c| c.row == 2 && c.col == 3})
-    assert(game.players[0].checkers.any? {|c| c.row == 2 && c.col == 5})
-    assert(game.players[0].checkers.any? {|c| c.row == 2 && c.col == 7})
+    [0..3].each_with_index { |e, i| assert_nil(game.board[0][i * 2]) }
+    [0..3].each_with_index { |e, i| assert_nil(game.board[1][1 + i * 2]) }
+    [0..3].each_with_index { |e, i| assert_nil(game.board[2][i * 2]) }
 
-    assert(game.players[1].checkers.any? {|c| c.row == 5 && c.col == 0})
-    assert(game.players[1].checkers.any? {|c| c.row == 5 && c.col == 2})
-    assert(game.players[1].checkers.any? {|c| c.row == 5 && c.col == 4})
-    assert(game.players[1].checkers.any? {|c| c.row == 5 && c.col == 6})
-    assert(game.players[1].checkers.any? {|c| c.row == 6 && c.col == 1})
-    assert(game.players[1].checkers.any? {|c| c.row == 6 && c.col == 3})
-    assert(game.players[1].checkers.any? {|c| c.row == 6 && c.col == 5})
-    assert(game.players[1].checkers.any? {|c| c.row == 6 && c.col == 7})
-    assert(game.players[1].checkers.any? {|c| c.row == 7 && c.col == 0})
-    assert(game.players[1].checkers.any? {|c| c.row == 7 && c.col == 2})
-    assert(game.players[1].checkers.any? {|c| c.row == 7 && c.col == 4})
-    assert(game.players[1].checkers.any? {|c| c.row == 7 && c.col == 6})
+    [0..3].each_with_index { |e, i| assert_instance_of(Checker, game.board[0][1 + i * 2]) }
+    [0..3].each_with_index { |e, i| assert_instance_of(Checker, game.board[1][i * 2]) }
+    [0..3].each_with_index { |e, i| assert_instance_of(Checker, game.board[2][1 + i * 2]) }
+
+    game.board[3..4].each { |e| e.each { |space| assert_nil(space) } }
+
+    [0..3].each_with_index { |e, i| assert_nil(game.board[5][1 + i * 2]) }
+    [0..3].each_with_index { |e, i| assert_nil(game.board[6][i * 2]) }
+    [0..3].each_with_index { |e, i| assert_nil(game.board[7][1 + i * 2]) }
+
+    [0..3].each_with_index { |e, i| assert_instance_of(Checker, game.board[5][i * 2]) }
+    [0..3].each_with_index { |e, i| assert_instance_of(Checker, game.board[6][1 + i * 2]) }
+    [0..3].each_with_index { |e, i| assert_instance_of(Checker, game.board[7][i * 2]) }
   end
 end
