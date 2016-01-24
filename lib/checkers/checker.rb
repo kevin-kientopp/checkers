@@ -1,37 +1,39 @@
 class Checker
-  attr_reader :row, :col, :dir, :picked_up
+  attr_reader :pos, :dir, :picked_up
   alias_method :picked_up?, :picked_up
 
-  def initialize(row, col, dir, image = nil)
-    @row, @col, @dir, @image = row, col, dir, image
+  def initialize(pos, dir, image = nil)
+    @pos, @dir, @image = pos, dir, image
   end
 
-  def move(row, col, other_checkers)
-    return false if row < 0 or row > 7 or col < 0 or col > 7
+  def move(pos, other_checkers)
+    return false if pos.row < 0 or pos.row > 7 or pos.col < 0 or pos.col > 7
 
     eligible_spaces = []
-    eligible_spaces << [@row + 1 * dir_multiplier, @col - 1] if space_empty?(@row + 1 * dir_multiplier, @col - 1, other_checkers)
-    eligible_spaces << [@row + 1 * dir_multiplier, @col + 1] if space_empty?(@row + 1 * dir_multiplier, @col + 1, other_checkers)
-    eligible_spaces << [@row + 2 * dir_multiplier, @col - 2] if space_empty?(@row + 2 * dir_multiplier, @col - 2, other_checkers) and enemy_checker_in_space?(@row + 1 * dir_multiplier, @col - 1, other_checkers)
-    eligible_spaces << [@row + 2 * dir_multiplier, @col + 2] if space_empty?(@row + 2 * dir_multiplier, @col + 2, other_checkers) and enemy_checker_in_space?(@row + 1 * dir_multiplier, @col + 1, other_checkers)
+    eligible_spaces << Position.new(@pos.row + 1 * dir_multiplier, @pos.col - 1) if space_empty?(Position.new(@pos.row + 1 * dir_multiplier, @pos.col - 1), other_checkers)
+    eligible_spaces << Position.new(@pos.row + 1 * dir_multiplier, @pos.col + 1) if space_empty?(Position.new(@pos.row + 1 * dir_multiplier, @pos.col + 1), other_checkers)
+    eligible_spaces << Position.new(@pos.row + 2 * dir_multiplier, @pos.col - 2) if space_empty?(Position.new(@pos.row + 2 * dir_multiplier, @pos.col - 2), other_checkers) &&
+      enemy_checker_in_space?(Position.new(@pos.row + 1 * dir_multiplier, @pos.col - 1), other_checkers)
+    eligible_spaces << Position.new(@pos.row + 2 * dir_multiplier, @pos.col + 2) if space_empty?(Position.new(@pos.row + 2 * dir_multiplier, @pos.col + 2), other_checkers) &&
+      enemy_checker_in_space?(Position.new(@pos.row + 1 * dir_multiplier, @pos.col + 1), other_checkers)
 
-    return false if !eligible_spaces.include?([row, col])
+    return false if !eligible_spaces.include?(Position.new(pos.row, pos.col))
 
-    @row, @col = row, col
+    @pos = pos
     true
   end
 
   def to_s
-    "#{@row}, #{@col}, #{@dir}"
+    "#{@pos}, #{@dir}"
   end
 
   private
-  def space_empty?(row, col, checkers)
-    checkers.count { |c| c.row == row and c.col == col } == 0
+  def space_empty?(pos, checkers)
+    checkers.count { |c| c.pos.row == pos.row and c.pos.col == pos.col } == 0
   end
 
-  def enemy_checker_in_space?(row, col, checkers)
-    checkers.count { |c| c.row == row and c.col == col and c.dir == opposite_dir } > 0
+  def enemy_checker_in_space?(pos, checkers)
+    checkers.count { |c| c.pos.row == pos.row and c.pos.col == pos.col and c.dir == opposite_dir } > 0
   end
 
   def dir_multiplier
